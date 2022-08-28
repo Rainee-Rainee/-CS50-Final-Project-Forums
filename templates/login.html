@@ -1,0 +1,54 @@
+{% extends "landing_styles.html" %}
+
+{% block stylesheet %}
+<link rel="stylesheet" href="/static/CSS/login_style.css">
+{% endblock %}
+
+{% block title %}
+Login
+{% endblock %}
+
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center" id="login">
+    <div>
+        <div id="login_form">
+            {% if isInvalid == True %}
+            <span class="row ml-4 mt-3 d-flex justify-content-start align-items-center text-danger">
+                <p>Unable to login.</p>
+            </span>
+            {% endif %}
+            <form action="/login.html" method="post">
+                <div class="row m-3">
+                    <div class="col-12">
+                        <input type="text" name="username" placeholder="Username">
+                    </div>
+                </div>
+
+                <div class="row m-3">
+                    <div class="col-12">
+                        <input type="password" name="password" placeholder="Password">
+                    </div>
+                </div>
+                <div class="row m-3">
+                    <div class="col-3"></div>
+                    <div class="col-6">
+                        <button type="submit" class="btn btn-info text-dark ">Login</button>
+                    </div>
+                    <div class="col-3"></div>
+                </div>
+            </form>
+        </div>
+        <div class="container d-flex justify-content-center align-items-center mt-4" id="return">
+        <a href="/"> Go Back </a>
+        </div>
+    </div>
+
+
+</div>
+{% endblock %}
+
+
+
+    {% if isInvalid == True %}
+    Invalid username or password
+    {% endif %}

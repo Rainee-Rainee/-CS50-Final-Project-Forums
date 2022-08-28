@@ -1,0 +1,79 @@
+{% extends "landing_styles.html" %}
+
+{% block stylesheet %}
+<link rel="stylesheet" href="/static/CSS/register_style.css">
+{% endblock %}
+
+{% block title %}
+Register
+{% endblock %}
+
+{% block content %}
+
+<div class="container d-flex justify-content-center align-items-center" id="register">
+    <div>
+        <div id="register_form">
+            <ul id="validation_list">
+                {% if isShortPassword == True %}
+                <span class="row m-2 d-flex justify-content-start align-items-center text-danger">
+                    <li>Password must be at least 5 characters.</li>
+                </span>
+                {% endif %}
+                {% if isLongPassword == True %}
+                <span class="row m-2 d-flex justify-content-start align-items-center text-danger">
+                    <li>Password can't be longer than 32 characters.</li>
+                </span>
+                {% endif %}
+                {% if isShortUsername == True %}
+                <span class="row m-2 d-flex justify-content-start align-items-center text-danger">
+                    <li>Username must be at least 1 character.</li>
+                </span>
+                {% endif %}
+                {% if isLongUsername == True %}
+                <span class="row m-2 d-flex justify-content-start align-items-center text-danger">
+                    <li>Username can't be longer than 15 characters. </li>
+                </span>
+                {% endif %}
+                {% if isInvalidCharacters == True %}
+                <span class="row m-2 d-flex justify-content-start align-items-center text-danger">
+                    <li>Usernames can only use letters, numbers, underscores and dashes. </li>
+                </span>
+                {% endif %}
+                {% if isUsernameTaken == True %}
+                <span class="row m-2 d-flex justify-content-start align-items-center text-danger">
+                    <li>The username has been taken.</li>
+                </span>
+                {% endif %}
+            </ul>
+
+            <form action="/register.html" method="post">
+                <div class="row m-3">
+                    <div class="col-12">
+                        <input type="text" name="username" placeholder="Username">
+                    </div>
+                </div>
+
+                <div class="row m-3">
+                    <div class="col-12">
+                        <input type="password" name="password" placeholder="Password">
+                    </div>
+                </div>
+                <div class="row m-3">
+                    <div class="col-3"></div>
+                    <div class="col-6">
+                        <button class="btn btn-info text-dark " type="submit">Register</button>
+                    </div>
+                    <div class="col-3"></div>
+                </div>
+            </form>
+        </div>
+        <div class="container d-flex justify-content-center align-items-center mt-4" id="return">
+        <a href="/"> Go Back </a>
+        </div>
+    </div>
+
+
+</div>
+
+
+{% endblock %}

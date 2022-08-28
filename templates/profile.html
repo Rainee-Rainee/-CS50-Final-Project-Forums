@@ -1,0 +1,28 @@
+{% extends "main_styles.html" %}
+
+{% block stylesheet %}
+<link rel="stylesheet" href="/static/home_style.css">
+{% endblock %}
+
+{% block title %}
+Profile
+{% endblock %}
+
+{% block content %}
+<form action="/profile.html" method="post" enctype="multipart/form-data">
+    <input type="file" name="upload">
+    <button type="submit">Submit</button>
+</form>
+
+
+
+
+<img
+src="{{pfp}}" onerror="this.style.display='none'" style="border: 1px solid white; border-radius: 100px; width: 128; height: 128; object-fit: cover;">
+
+
+<div>
+<a href="/home.html" style="margin-top: 200px;">Go Back</a>
+</div>
+
+{% endblock %}
