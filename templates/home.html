@@ -1,0 +1,220 @@
+{% extends "main_styles.html" %}
+
+{% block stylesheet %}
+<link rel="stylesheet" href="/static/CSS/home_style.css">
+{% endblock %}
+
+{% block title %}
+Forums
+{% endblock %}
+
+{% block content %}
+<div>
+
+<style>
+  .searchResultBox {
+    background: white;
+    position: absolute;
+    height: fit-content;
+    border-radius: 5px;
+  }
+  .searchResultBoxEntry {
+    cursor: pointer;
+    font-family: sans-serif;
+    position: relative;
+    font-size: 15px;
+    padding: 10px 15px;
+  }
+  .searchResultBoxEntry:first-child {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+  }
+  .searchResultBoxEntry:last-child {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+  .searchResultBoxEntry:hover {
+    background: rgb(80, 80, 255);
+    color: white;
+  }
+  .searchResultBoxEntry:active {
+    background: rgb(130, 130, 255);
+    color: white;
+  }
+</style>
+  
+<div class="d-flex justify-content-center" id="app">
+
+    <div class="" style="position: in-line; margin-top: 5vh" ref="searchBoxRef">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light" id="nav-mobile"
+      style="background-color: rgb(51, 74, 92);  border-radius: 30px;">
+      <a class="navbar-brand" >Forums </a>
+      <div class="vl d-none d-lg-block d-xl-block"></div>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" style="">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+        
+      <!-- SEARCH -->
+        
+      <form class="form-inline ml-3 my-2 my-lg-0">
+        <input autocomplete="off" class="form-control mr-sm-2" type="search" placeholder="Search Forums" aria-label="Search" id="search-input" v-model="query" @click="showSearchResults()"/>
+        
+      </form>
+    </nav>
+    <div style="position: relative; display: block; background: black; transform: translateY(16px);">
+  <div class="searchResultBox">
+    <div class="searchResultBoxEntry" v-if="shouldDisplaySearchResults()" v-for="result in results" @click.prevent.self="onSearchResultClick(result.topic_id, $event)">
+      [[truncateTopicTitle(result.title)]]
+    </div>
+  </div>
+</div>
+
+
+    </div>
+</div>
+
+  <div style="margin-top: 2%"></div>
+
+</div>
+
+
+
+  <script type="module">
+    import {
+      createApp,
+      onMounted,
+      onUnmounted,
+      ref,
+      watch
+    } from 'vue';
+
+    createApp({
+      delimiters: ['[[', ']]'],
+      setup() {
+        const searchBoxRef = ref(null);
+        const query = ref('');
+        const results = ref([]);
+        const areSearchResultsVisible = ref(false);
+
+        async function getSearchResults() {
+          const queryResults = await fetch(`/api/search/${query.value}`,{
+            cache: 'no-cache'
+          });
+          const json = await queryResults.json();
+          results.value = json.results;
+        };
+
+        function truncateTopicTitle(title) {
+          const MAX_TITLE_LENGTH = 60;
+          if(title.length > MAX_TITLE_LENGTH) {
+            return title.substring(0, MAX_TITLE_LENGTH) + ' ...';
+          } else {
+            return title;
+          }
+        }
+
+        function showSearchResults() {
+          areSearchResultsVisible.value = true;
+        }
+
+        function hideSearchResults() {
+          areSearchResultsVisible.value = false;
+        }
+
+        function shouldDisplaySearchResults() {
+          return areSearchResultsVisible.value && query.value !== '';
+        }
+
+        function onSearchResultClick(topicId, e) {
+            window.location.replace(`/thread/${topicId}`);
+        }
+
+        watch(query, () => {
+          if(query.value) {
+            return getSearchResults(); 
+          }
+        });
+
+        function onDocumentClick(e) {
+          if(searchBoxRef.value.contains(e.target)) {
+            return;
+          }
+
+          hideSearchResults();
+        }
+        
+        onMounted(() => {
+            document.addEventListener('click', onDocumentClick);
+        });
+
+        onUnmounted(() => {
+          document.removeEventListener('click', onDocumentClick);
+        });
+                                      
+        return {
+          query,
+          results,
+          areSearchResultsVisible,
+          searchBoxRef,
+          getSearchResults,
+          truncateTopicTitle,
+          showSearchResults,
+          hideSearchResults,
+          onSearchResultClick,
+          shouldDisplaySearchResults,
+        }
+      }
+    }).mount('#app');
+</script>
+
+
+<div class="d-flex justify-content-center" style="">
+  <a href="/post.html" style="text-decoration: none;">Start a thread &nbsp</a>
+  <div class="vl-2">&nbsp</div>
+  <a href="/profile.html" style="text-decoration: none;">Upload a Profile Picture &nbsp </a>
+  <div class="vl-2">&nbsp</div>
+  <a href="/logout" style="text-decoration: none;">Logout &nbsp</a>
+  <div style="margin-bottom: 5%"></div>
+
+</div>
+
+
+
+
+<div class="container">
+  
+  <table class="table table-sm table-dark">
+    <thead>
+      <tr>
+        <th scope="col">Topic</th>
+        <th scope="col">Author</th>
+        <th scope="col">Date</th>
+        <th scope="col">Replies</th>
+      </tr>
+    </thead>
+    <tbody>
+
+    {% for item in threads %}
+    <tr>
+      <td><a href="/thread/{{item['topic_id']}}">{{item["title"]}}</a></td>
+      <td><a>{{item["author_name"]}}</a></td>
+      <td>{{item["date"]}}</td>
+      <td>{{item["posts_count"]}}</td>
+     
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+
+
+
+
+
+  <ul>
+    
+  </ul>
+
+</div>
+
+{% endblock %}
