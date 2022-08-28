@@ -1,0 +1,136 @@
+#login_register {
+    min-height: 100vh;
+    min-width: 100vw;
+    position: absolute;
+
+}
+
+#register {
+    width: 6vw;
+    min-width: 90px;
+}
+
+
+#login {
+    width: 6vw;
+    min-width: 90px;
+}
+
+#register-login_form {
+    border: 1px solid #007ebd;
+    border-radius: 10px;
+}
+
+#display_title {
+    position: absolute;
+    min-width: 600px;"
+}
+
+#logo_container {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+ }
+
+#twiter_logo {
+    position: absolute;
+    min-width: 50px;
+    min-height: 50px;
+    max-width: 200px;
+    max-height: 200px;
+    margin-top: 80vh;
+    margin-left: 33vw;
+    animation-name: twitter_animation;
+    animation-duration: 3s;
+    z-index: 1;
+
+}
+
+@keyframes twitter_animation {
+    0% {opacity: 0; }
+    100% {opacity: 1; }
+}
+
+#twiter_logo:hover{
+    filter: contrast(1.75)
+}
+
+#linkedin_logo {
+    position: absolute;
+    min-width: 50px;
+    min-height: 50px;
+    max-width: 200px;
+    max-height: 200px;
+    margin-top: 80vh;
+    margin-left: 43vw;
+    animation-name: linkedin_animation;
+    animation-duration: 3s;
+    z-index: 1;
+
+}
+
+@keyframes linkedin_animation {
+    0% {opacity: 0; }
+    25% {opacity: 0; }
+    100% {opacity: 1; }
+}
+
+#linkedin_logo:hover{
+    filter: contrast(1.75)
+}
+
+#pintrest_logo {
+    position: absolute;
+    min-width: 50px;
+    min-height: 50px;
+    max-width: 200px;
+    max-height: 200px;
+    margin-top: 80vh;
+    margin-left: 53vw;
+    animation-name: pintrest_animation;
+    animation-duration: 4s;
+    z-index: 1;
+
+}
+
+@keyframes pintrest_animation {
+    0% {opacity: 0; }
+    33% {opacity: 0; }
+    100% {opacity: 1; }
+}
+
+#pintrest_logo:hover{
+    filter: contrast(1.75)
+}
+
+#facebook_logo {
+    position: absolute;
+    min-width: 50px;
+    min-height: 50px;
+    max-width: 200px;
+    max-height: 200px;
+    margin-top: 80vh;
+    margin-left: 63vw;
+    animation-name: facebook_animation;
+    animation-duration: 4s;
+    z-index: 1;
+
+}
+
+@keyframes facebook_animation {
+    0% {opacity: 0; }
+    50% {opacity: 0; }
+    100% {opacity: 1; }
+}
+
+#facebook_logo:hover{
+    filter: contrast(1.75)
+}
+
+@media only screen and (max-width: 960px) {
+    #twiter_logo { opacity: 0;}
+    #linkedin_logo { opacity: 0;}
+    #pintrest_logo { opacity: 0;}
+    #facebook_logo { opacity: 0;}
+    footer { opacity: 0;}
+}

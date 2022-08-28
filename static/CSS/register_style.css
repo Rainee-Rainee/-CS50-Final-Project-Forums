@@ -1,0 +1,19 @@
+#register {
+    min-height: 100vh;
+    min-width: 100vw;
+    position: absolute;
+}
+
+#register_form {
+    border: 1px solid #007ebd;
+    border-radius: 10px;
+}
+
+#return {
+    margin-left: -3%;
+
+}
+
+#validation_list {
+    max-width: 300px;
+}
