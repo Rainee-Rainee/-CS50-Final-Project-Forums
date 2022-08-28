@@ -1,0 +1,88 @@
+{% extends "main_styles.html" %}
+
+{% block stylesheet %}
+<link rel="stylesheet" href="/static/home_style.css">
+{% endblock %}
+
+{% block title %}
+Thread
+{% endblock %}
+
+{% block content %}
+<div class="container" style="padding-right: 5vw; padding-left: 5vw; padding-top: 5vh;">
+
+    <div style="margin-bottom: 10px;">
+    <div style="display: flex; justify-content: space-between; color: blue;">
+        <a href="/home.html">Back</a>
+        <a href="#Reply">Reply</a>
+    </div>
+    </div>
+
+    <div class="post" style=" box-shadow: 0 0 10px #000000; margin-bottom: 15px;" >
+        <div style="padding: 10px 0px 0px 10px; color: rgb(206, 201, 201); background-color: #343a40; border-top: 1px solid black; border-right: 1px solid black; border-left: 1px solid black; min-width: 100%; min-height: 40px; border-radius: 15px 15px 0px 0px; ">
+
+            <b>{{thread["title"]}}</b>
+
+        </div>
+      
+        <div style="color: rgb(206, 201, 201); width: 100%; max-height: 250px; border: 1px solid black;">
+          <div style="text-align: center; height: 250px; background-color: #343a40; display: inline-block; width: 30%; max-width: 30%; margin: 0px 0px 0px 0px; padding: 10px 0px 0px 10px; border-radius: 0px 0px 0px 0px; border-right: 1px solid black;">
+      
+            
+            <img src="{{thread['author_pfp']}}" onerror="this.style.display='none'" style="border: 1px solid white; border-radius: 100px; width: 128; height: 128; object-fit: cover;">
+            <div>{{author_username}}</div>
+
+          </div><div style="vertical-align:top; color: rgb(206, 201, 201); height: 250px; background-color: #343a40; display: inline-block; width: 70%; margin: 0px 0px 0px 0px; padding: 10px 0px 0px 10px; border-radius: 0px 0px 5px 0px;">
+      
+            {{thread["content"]}}
+
+          </div>
+        </div>
+      </div>
+      
+
+
+      
+      {% for reply in replies %}
+          <div class="post" style=" box-shadow: 0 0 10px #000000; margin-bottom: 15px;" >
+
+      
+        <div style="color: rgb(206, 201, 201); width: 100%; max-height: 250px; border: 1px solid black;">
+          <div style="text-align: center; height: 250px; background-color: #343a40; display: inline-block; width: 30%; max-width: 30%; margin: 0px 0px 0px 0px; padding: 10px 0px 0px 10px; border-radius: 0px 0px 0px 0px; border-right: 1px solid black;">
+            
+            <img src="{{reply['replier_pfp']}}" onerror="this.style.display='none'" style="border: 1px solid white; border-radius: 100px; width: 128; height: 128; object-fit: cover;">
+            <div>{{reply["replier_username"]}}</div>
+
+          </div><div style="vertical-align:top; color: rgb(206, 201, 201); height: 250px; background-color: #343a40; display: inline-block; width: 70%; margin: 0px 0px 0px 0px; padding: 10px 0px 0px 10px; border-radius: 0px 0px 5px 0px;">
+      
+            {{reply["content"]}}
+
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+      
+      <form id="Reply" action="{{url_for("thread", topic_id=topic_id)}}" method="post">
+        <div style="margin-bottom: 5px; margin-top: 35px;">
+        <textarea rows="8" cols="60" wrap="hard" name="reply" pceholder="Post a reply.." style="color: white; width: 100%; background-color: #343a40;"></textarea>
+        </div>
+        <div style="text-align: center;">
+        <button class="btn btn-info text-dark" type="submit" style="">Reply</button>
+        </div>
+      </form>
+
+     
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+{% endblock %}
