@@ -6,7 +6,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from cs50 import SQL
 from re import match
 from imagekitio import ImageKit
-
+import os
 import api.search as searchApiRoute
 
 #Configures flask
@@ -301,5 +301,7 @@ def profile():
 
 
 
-
-app.run(host='0.0.0.0', port=5000)
+    
+    
+port = int(os.environ.get('PORT', 5000))
+app.run(host='0.0.0.0', port=port)
