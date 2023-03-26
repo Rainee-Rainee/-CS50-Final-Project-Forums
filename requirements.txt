@@ -3,4 +3,6 @@ Flask-Session
 cs50
 imagekitio
 Flask-SocketIO
+gunicorn==20.1.0
+waitress==2.1.2
 
